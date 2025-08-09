@@ -1,15 +1,12 @@
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
-
 const app = express();
 const port = 3000;
 
 app.get('/daily', async (req, res) => {
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+    
     const { data, error } = await supabase
         .from('challenges')
         .select('*')
